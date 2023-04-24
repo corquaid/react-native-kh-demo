@@ -1,9 +1,17 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Product } from '../../types'
 import { getAllCategoryProducts } from '../../api'
 import ProductCard from '../ProductCard'
 import { capitalizeWords } from '../../utils'
+import { useSelector } from 'react-redux'
+import { selectFavourites } from '../../redux/selectors'
 
 interface CategoryProps {
   category: string
@@ -11,11 +19,19 @@ interface CategoryProps {
 
 export default function Category(props: CategoryProps) {
   const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(false)
+
+  const favourites = useSelector(selectFavourites)
+
+  console.log("FAVOURITES: ", favourites)
+
 
   useEffect(() => {
+    setLoading(true)
     const fetchData = async () => {
       const data = await getAllCategoryProducts(props.category)
       setProducts(data)
+      setLoading(false)
     }
     fetchData().catch(console.error)
   }, [])
@@ -25,14 +41,16 @@ export default function Category(props: CategoryProps) {
       <Text style={styles.heading}>{capitalizeWords(props.category)}</Text>
       <FlatList
         horizontal
-        data={products}
-        renderItem={({ item }) => (
-          <View style={styles.cardContainer}>
-            <ProductCard product={item} />
-          </View>
-        )}
         showsHorizontalScrollIndicator={false}
-        style={{}}
+        data={products}
+        renderItem={({ item }) => {
+          const isFavourite = favourites.includes(item.id)
+          return (
+            <View style={styles.cardContainer}>
+              {loading ? <ActivityIndicator size='large' /> : <ProductCard product={item} isFavourite={isFavourite} />}
+            </View>
+          )
+        }}
       />
     </View>
   )

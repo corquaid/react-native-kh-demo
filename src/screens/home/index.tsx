@@ -1,9 +1,9 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootStackParamList } from '../../navigation/Routes'
 import { useEffect, useState } from 'react'
+import { ScrollView, StyleSheet, Text } from 'react-native'
 import { getAllCategories } from '../../api'
 import Category from '../../components/Category'
+import { RootStackParamList } from '../../navigation/StackNavigator'
 
 type HomeScreenProps = StackScreenProps<RootStackParamList, 'Store'>
 
@@ -21,12 +21,9 @@ export default function HomeScreen(props: HomeScreenProps) {
     fetchData().catch(console.error)
   }, [])
 
-  if (loading) {
-    return <Text>Loading...</Text>
-  }
-
   return (
     <ScrollView style={styles.container}>
+      {loading && <Text>Loading...</Text>}
       {categories.length > 0 ? (
         categories.map((category) => (
           <Category key={category} category={category} />
@@ -42,7 +39,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 8,
     backgroundColor: '#2B2B48',
   },
   heading: {

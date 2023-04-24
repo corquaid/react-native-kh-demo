@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb9c2298-1334-4b46-8031-0c3dd8bd236d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Category/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Category/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Center/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProductCard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/navigation/Routes.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/detail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/detail/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/home/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

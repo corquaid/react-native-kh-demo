@@ -1,28 +1,11 @@
-import { Text, View, StyleSheet, Image } from 'react-native'
-import { RootStackParamList } from '../../navigation/Routes'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useEffect, useState } from 'react'
-import { Product } from '../../types'
-import { getProduct } from '../../api'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import { RootStackParamList } from '../../navigation/StackNavigator'
 
 type DetailScreenProps = StackScreenProps<RootStackParamList, 'Detail'>
 
 export default function DetailScreen({ route }: DetailScreenProps) {
-  const { productId } = route.params
-  const [product, setProduct] = useState<Product>()
-  const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    setLoading(true)
-    const fetchData = async () => {
-      const data = await getProduct(productId)
-      setProduct(data)
-      setLoading(false)
-    }
-    fetchData().catch(console.error)
-  }, [])
-
-  console.log(product)
+  const { product } = route.params
 
   return (
     <View style={styles.container}>
@@ -50,7 +33,8 @@ const styles = StyleSheet.create({
   },
   content: {
     display: 'flex',
-    flexDirection: 'row',
+    // flexDirection: 'row',
+    alignItems: 'center',
   },
   imageContainer: {
     borderRadius: 8,
