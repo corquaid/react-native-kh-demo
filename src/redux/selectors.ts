@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { RootState } from './types';
 
 export const selectFavourites = createSelector(
   (state: RootState) => state.favourites,

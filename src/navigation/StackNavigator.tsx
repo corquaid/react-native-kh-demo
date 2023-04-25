@@ -4,12 +4,10 @@ import React from 'react'
 import HomeScreen from '../screens/home'
 import DetailScreen from '../screens/detail'
 import { Product } from '../types'
-import { Button } from 'react-native'
-import { StackNavigationProp } from '@react-navigation/stack'
 
 export type RootStackParamList = {
   Store: undefined
-  Detail: { product: Product }
+  Detail: { product: Product; isFavourite: boolean }
 }
 
 const Stack = createStackNavigator<RootStackParamList>()
@@ -39,12 +37,12 @@ export default function StackNavigator() {
           name="Detail"
           component={DetailScreen}
           options={({ route }) => ({
-            headerStyle: { backgroundColor: 'white' },
+            headerStyle: { backgroundColor: 'lightgray' },
             headerTitleStyle: {
               color: 'black',
             },
             headerTintColor: 'black',
-            title: route.params.product.title,
+            title: '',
           })}
         />
       </Stack.Navigator>

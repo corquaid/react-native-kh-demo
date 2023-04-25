@@ -1,11 +1,8 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   combineReducers,
   configureStore,
-  createSlice,
-  PayloadAction,
 } from '@reduxjs/toolkit'
-import { Product } from '../types'
 import {
   persistStore,
   persistReducer,
@@ -16,14 +13,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
-
-interface FavouritesState {
-  favourites: number[]
-}
-
-const initialState: FavouritesState = {
-  favourites: [],
-}
+import favouritesSlice from './favouritesSlice'
 
 const persistConfig = {
   key: 'root',
@@ -31,29 +21,8 @@ const persistConfig = {
   storage: AsyncStorage,
 }
 
-const favouritesSlice = createSlice({
-  name: 'favourites',
-  initialState,
-  reducers: {
-    addFavourite(state, action: PayloadAction<Product>) {
-      const product = action.payload
-      state.favourites.push(product.id)
-    },
-    removeFavourite(state, action: PayloadAction<number>) {
-      const productId = action.payload
-      state.favourites = state.favourites.filter(
-        (favourite) => favourite !== productId,
-      )
-    },
-  },
-})
-
-export const { addFavourite, removeFavourite } = favouritesSlice.actions
-
-const favouritesReducer = favouritesSlice.reducer
-
 export const rootReducer = combineReducers({
-  favourites: favouritesReducer,
+  favourites: favouritesSlice,
 })
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -68,8 +37,5 @@ export const store = configureStore({
     }),
 })
 
-
-
 export const persistor = persistStore(store)
 
-export type RootState = ReturnType<typeof rootReducer>

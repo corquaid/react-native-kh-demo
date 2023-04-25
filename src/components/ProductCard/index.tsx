@@ -6,7 +6,7 @@ import { RootStackParamList } from '../../navigation/StackNavigator'
 import { Product } from '../../types'
 import FavouriteIcon from '../FavouriteIcon'
 import { useDispatch } from 'react-redux'
-import { addFavourite, removeFavourite } from '../../redux/store'
+import { addFavourite, removeFavourite } from '../../redux/favouritesSlice'
 
 interface ProductCardProps {
   product: Product
@@ -30,7 +30,7 @@ export default function ProductCard(props: ProductCardProps) {
       <View style={styles.imageContainer}>
         <Pressable
           onPress={() =>
-            navigation.navigate('Detail', { product: props.product })
+            navigation.navigate('Detail', { product: props.product, isFavourite: props.isFavourite })
           }
         >
           <Image
@@ -44,9 +44,9 @@ export default function ProductCard(props: ProductCardProps) {
         {props.product.title}
       </Text>
       <View style={styles.priceRow}>
-        <Text style={styles.price}>${props.product.price.toFixed(2)}</Text>
+        <Text style={styles.price}>€{props.product.price.toFixed(2)}</Text>
         <Pressable onPress={toggleFavourite}>
-          <FavouriteIcon iconName={props.isFavourite ? 'heart' : 'hearto'} />
+          <FavouriteIcon iconName={props.isFavourite ? 'heart' : 'hearto'} size={16} />
         </Pressable>
       </View>
     </View>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   image: {
-    height: 100,
+    height: 150,
     width: 100,
   },
   title: {
