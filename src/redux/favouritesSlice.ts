@@ -12,12 +12,12 @@ const favouritesSlice = createSlice({
   reducers: {
     addFavourite(state, action: PayloadAction<Product>) {
       const product = action.payload
-      state.favourites.push(product.id)
+      state.favourites.push(product)
     },
     removeFavourite(state, action: PayloadAction<number>) {
       const productId = action.payload
       state.favourites = state.favourites.filter(
-        (favourite) => favourite !== productId,
+        (favourite) => favourite.id !== productId,
       )
     },
   },

@@ -13,7 +13,7 @@ interface ProductCardProps {
   isFavourite: boolean
 }
 
-export default function ProductCard(props: ProductCardProps) {
+export function ProductCard(props: ProductCardProps) {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
   const dispatch = useDispatch()
 
@@ -64,6 +64,8 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: 'white',
     padding: 4,
+    display: 'flex',
+    alignItems: 'center',
   },
   image: {
     height: 150,

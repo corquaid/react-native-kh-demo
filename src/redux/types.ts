@@ -1,7 +1,8 @@
+import { Product } from "../types"
 import { rootReducer } from "./store"
 
 export interface AppState {
-  favourites: number[]
+  favourites: Product[]
 }
 
 export type RootState = ReturnType<typeof rootReducer>

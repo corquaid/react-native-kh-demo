@@ -8,8 +8,8 @@ import {
 import React, { useEffect, useState } from 'react'
 import { Product } from '../../types'
 import { getAllCategoryProducts } from '../../api'
-import ProductCard from '../ProductCard'
-import { capitalizeWords } from '../../utils'
+import { ProductCard } from '../ProductCard'
+import { capitalizeWords, checkFavourite } from '../../utils'
 import { useSelector } from 'react-redux'
 import { selectFavourites } from '../../redux/selectors'
 
@@ -22,9 +22,7 @@ export default function Category(props: CategoryProps) {
   const [loading, setLoading] = useState(false)
 
   const favourites = useSelector(selectFavourites)
-
-  console.log("FAVOURITES: ", favourites)
-
+  console.log(favourites)
 
   useEffect(() => {
     setLoading(true)
@@ -44,10 +42,13 @@ export default function Category(props: CategoryProps) {
         showsHorizontalScrollIndicator={false}
         data={products}
         renderItem={({ item }) => {
-          const isFavourite = favourites.includes(item.id)
           return (
             <View style={styles.cardContainer}>
-              {loading ? <ActivityIndicator size='large' /> : <ProductCard product={item} isFavourite={isFavourite} />}
+              {loading ? (
+                <ActivityIndicator size="large" />
+              ) : (
+                <ProductCard product={item} isFavourite={checkFavourite(favourites, item)} />
+              )}
             </View>
           )
         }}

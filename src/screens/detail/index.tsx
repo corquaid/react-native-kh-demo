@@ -1,15 +1,24 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { RootStackParamList } from '../../navigation/StackNavigator'
 import FavouriteIcon from '../../components/FavouriteIcon'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectFavourites } from '../../redux/selectors'
 import Toast from 'react-native-toast-message'
 import { addFavourite, removeFavourite } from '../../redux/favouritesSlice'
+import Icon from 'react-native-vector-icons/AntDesign'
+import { checkFavourite } from '../../utils'
 
 type DetailScreenProps = StackScreenProps<RootStackParamList, 'Detail'>
 
-export default function DetailScreen({ route }: DetailScreenProps) {
+export default function DetailScreen({ route, navigation }: DetailScreenProps) {
   const { product } = route.params
   const favourites = useSelector(selectFavourites)
   const dispatch = useDispatch()
@@ -28,11 +37,17 @@ export default function DetailScreen({ route }: DetailScreenProps) {
     }
   }
 
-  const isFavourite = favourites.includes(product.id)
+  const isFavourite = checkFavourite(favourites, product)
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Icon name="arrowleft" size={20} />
+        </Pressable>
         <View style={styles.imageContainer}>
           <Image
             source={{ uri: product?.image }}
@@ -62,12 +77,18 @@ export default function DetailScreen({ route }: DetailScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingVertical: 8,
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
   },
   content: {
+    flex: 1,
     display: 'flex',
     alignItems: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    backgroundColor: 'white',
+  },
+  backButton: {
+    alignSelf: 'flex-start',
   },
   imageContainer: {
     backgroundColor: 'white',
@@ -84,7 +105,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'flex-start',
     paddingVertical: 16,
-    paddingHorizontal: 16,
   },
   priceContainer: {
     display: 'flex',

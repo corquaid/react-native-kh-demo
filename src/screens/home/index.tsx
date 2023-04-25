@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text } from 'react-native'
+import { FlatList, View, StyleSheet, Text } from 'react-native'
 import { getAllCategories } from '../../api'
 import Category from '../../components/Category'
 import { RootStackParamList } from '../../navigation/StackNavigator'
@@ -22,16 +22,20 @@ export default function HomeScreen(props: HomeScreenProps) {
   }, [])
 
   return (
-    <ScrollView style={styles.container}>
-      {loading && <Text>Loading...</Text>}
-      {categories.length > 0 ? (
-        categories.map((category) => (
-          <Category key={category} category={category} />
-        ))
+    <View style={styles.container}>
+      {loading && <Text style={{ color: 'white' }}>Loading...</Text>}
+      {!loading && categories.length > 0 ? (
+        <FlatList
+          data={categories}
+          renderItem={({ item }) => {
+            return <Category category={item} />
+          }}
+          showsVerticalScrollIndicator={false}
+        />
       ) : (
         <Text>No products found.</Text>
       )}
-    </ScrollView>
+    </View>
   )
 }
 
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    backgroundColor: '#2B2B48',
+    backgroundColor: '#212134',
   },
   heading: {
     fontFamily: 'SourceSansRegular',
